@@ -1,40 +1,51 @@
-# create-svelte
+# steps
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+1. initialize a svelte app with
+   `npm init svelte@next my-app`
 
-## Creating a project
+2. install tailwindcss
 
-If you're seeing this, you've probably already done this step. Congrats!
+        npm install -D tailwindcss postcss autoprefixer
+        npx tailwindcss init tailwind.config.cjs -p
+        mv postcss.config.js postcss.config.cjs
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+3. follow the remaining steps [here](https://tailwindcss.com/docs/guides/sveltekit)
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+4. install `daisyui` and `theme-change` with
+   `npm i -D daisyui theme-change`
 
-> Note: the `@next` is temporary
+5. add `daisyui` in `tailwind.config.cjs` like [this](https://github.com/rfbroccoli/class-website/blob/part1/tailwind.config.cjs)
 
-## Developing
+        module.exports = {
+        content: ['./src/**/*.{html,js,svelte,ts}'],
+        theme: {
+            extend: {},
+        },
+        plugins: [require("daisyui")],
+        }
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-```bash
-npm run dev
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+6. add this in `script` tag in `src/routes/__layout.svelte` like [this](https://github.com/rfbroccoli/class-website/blob/part1/src/routes/__layout.svelte)
 
-## Building
+        import { onMount } from 'svelte';
+        import { themeChange } from 'theme-change';
 
-To create a production version of your app:
+        // NOTE: the element that is using one of the theme attributes must be in the DOM on mount
+        onMount(() => {
+            themeChange(false);
+            // 👆 false parameter is required for svelte
+        });
 
-```bash
-npm run build
-```
+7. install `mongodb` with `npm i -D mongodb`
 
-You can preview the production build with `npm run preview`.
+8. create a `.env` file and add this to test with the test database
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+        VITE_MONGODB_URL=mongodb+srv://pwhb:g61SYqMXcShSMvs4@cluster0.v2xda.mongodb.net/test
+
+
+9. follow the steps in the video. here's the only two steps that's not in a `.svelte` file
+    - create `lib/server/db.js` like [this](https://github.com/rfbroccoli/class-website/blob/part1/src/lib/server/db.js)
+
+    - create an `api/students` endpoint like [this](https://github.com/rfbroccoli/class-website/blob/part1/src/routes/api/students.js)
+
