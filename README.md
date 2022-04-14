@@ -53,4 +53,12 @@
 
 # steps in part 2
 
-1. create `toggle_theme.svelte` component like [this]()
+1. create `toggle_theme.svelte` component like [this](https://github.com/rfbroccoli/class-website/blob/part2/src/lib/components/toggle_theme.svelte)
+
+2. update the api endpoint in `api/students/[batch].js` like [this](https://github.com/rfbroccoli/class-website/blob/part2/src/routes/api/students/%5Bbatch%5D.js)
+
+3. update the class route in `routes/classes/[batch].svelte` like [this](https://github.com/rfbroccoli/class-website/blob/part2/src/routes/classes/%5Bbatch%5D.svelte)
+
+4. create a store `lib/store/lightbulb.js` like [this](https://github.com/rfbroccoli/class-website/blob/part2/src/lib/store/lightbulb.js)
+
+5. create a lab `routes/labs/lightbulbs.svelte` like [this](https://github.com/rfbroccoli/class-website/blob/part2/src/routes/labs/lightbulbs.svelte)
