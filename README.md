@@ -1,4 +1,4 @@
-# steps
+# steps in part 1
 
 1. initialize a svelte app with
    `npm init svelte@next my-app`
@@ -49,3 +49,8 @@
 
     - create an `api/students` endpoint like [this](https://github.com/rfbroccoli/class-website/blob/part1/src/routes/api/students.js)
 
+
+
+# steps in part 2
+
+1. create `toggle_theme.svelte` component like [this]()
