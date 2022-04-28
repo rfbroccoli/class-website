@@ -1,10 +1,20 @@
 <script>
+	import { studentForm } from '$lib/store/student_modal';
+
+	import StudentModal from './student_modal.svelte';
+
 	export let student = {
 		first_name: '',
 		last_name: '',
 		student_id: '',
+		github_account: '',
 		reason_for_joining: ''
 	};
+
+	function onClick() {
+		// console.log(student);
+		studentForm.set(student);
+	}
 </script>
 
 <div class="card w-96 bg-slate-200 text-black shadow-xl">
@@ -15,13 +25,31 @@
 					<span>{student.first_name.slice(0, 1)}</span>
 				</div>
 			</div>
-
-			<h2 class="card-title">{student.first_name || "Anonymous"} {student.last_name || ""}</h2>
+			<div class="text-left">
+				<h2 class="card-title">{student.first_name || 'Anonymous'} {student.last_name || ''}</h2>
+				<p>
+					{#if student.github_account}
+						<a
+							href={`https://github.com/${student.github_account}`}
+							class="text-blue-400 text-sm hover:text-black">{student.github_account}</a
+						>
+					{:else}
+						<span class="text-sm text-gray-400">haven't added yet</span>
+					{/if}
+					<span class="text-sm font-thin">ID: {student.student_id}</span>
+				</p>
+			</div>
 		</div>
 
-		<p>{student.reason_for_joining || "haven't added yet"}</p>
+		<p class={student.reason_for_joining ? '' : 'text-gray-400'}>
+			{student.reason_for_joining || "haven't added yet"}
+		</p>
 		<div class="card-actions justify-end">
-			<button class="btn btn-secondary btn-sm">Edit</button>
+			<label for="student-modal" class="btn btn-sm btn-secondary modal-button" on:click={onClick}
+				>Edit</label
+			>
 		</div>
 	</div>
 </div>
+
+<!-- The button to open modal -->

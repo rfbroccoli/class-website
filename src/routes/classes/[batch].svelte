@@ -15,6 +15,7 @@
 
 <script>
 	import StudentCard from '$lib/components/student_card.svelte';
+	import StudentModal from '$lib/components/student_modal.svelte';
 	export let students;
 	export let batch;
 </script>
@@ -22,6 +23,8 @@
 <svelte:head>
 	<title>{batch}</title>
 </svelte:head>
+
+<StudentModal {batch} />
 
 <div class="max-w-3xl mx-auto text-center min-h-[70vh]">
 	<h1 class="text-3xl font-medium lowercase mt-20">
