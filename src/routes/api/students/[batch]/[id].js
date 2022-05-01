@@ -37,10 +37,14 @@ export async function put({ params, request }) {
                 reason_for_joining
             }
         }
-        const res = await col.updateOne(filter, update)
+        const { modifiedCount } = await col.updateOne(filter, update)
+        if (modifiedCount === 1) {
+            return {
+                status: 201,
+            }
+        }
         return {
-            body:
-                res
+            status: 404
         }
     } catch (e) {
         return {

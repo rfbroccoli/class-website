@@ -1,8 +1,8 @@
 <script>
-	import { studentForm } from '$lib/store/student_modal';
+	import { notification, studentForm } from '$lib/store/student_modal';
+	import { onDestroy } from 'svelte';
 	export let batch;
 	let student = {
-		_id: '',
 		first_name: '',
 		last_name: '',
 		student_id: '',
@@ -16,17 +16,39 @@
 	async function onSubmit() {
 		// console.log('modal', student);
 		const { first_name, last_name, github_account, reason_for_joining } = student;
-		// const res = 
-		await fetch(`/api/students/${batch}/${student._id}`, {
+		const res = await fetch(`/api/students/${batch}/${secret_id}`, {
 			credentials: 'same-origin',
 			method: 'PUT',
 			body: JSON.stringify({ first_name, last_name, github_account, reason_for_joining })
 		});
-		location.href = `/classes/${batch}`
+		if (res.status === 201) {
+			notification.set({
+				type: 'success',
+				message: 'edited successfully!'
+			});
+			setTimeout(() => {
+				location.href = `/classes/${batch}/#${student.student_id}`;
+			}, 4000);
+			return;
+		}
+		notification.set({
+			type: 'error',
+			message: 'incorrect secret id!'
+		});
+		console.log($notification);
+		// alert('');
 
 		// const data = await res.json();
-		// console.log(data);
+		// // console.log(data);
+		// console.log(res.status);
 	}
+
+	onDestroy(() => {
+		notification.set({
+			type: '',
+			message: ''
+		});
+	});
 </script>
 
 <!-- Put this part before </body> tag -->
@@ -89,7 +111,7 @@
 			</div>
 		</form>
 		<div class="modal-action">
-			{#if secret_id === student._id}
+			{#if secret_id.length === 24}
 				<label for="student-modal" on:click={onSubmit} class="btn btn-sm">Submit</label>
 			{:else}
 				<label for="student-modal" disabled class="btn btn-sm">Submit</label>

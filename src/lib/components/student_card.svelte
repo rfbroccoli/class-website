@@ -1,8 +1,6 @@
 <script>
 	import { studentForm } from '$lib/store/student_modal';
 
-	import StudentModal from './student_modal.svelte';
-
 	export let student = {
 		first_name: '',
 		last_name: '',
@@ -17,7 +15,7 @@
 	}
 </script>
 
-<div class="card w-96 bg-slate-200 text-black shadow-xl">
+<div id={student.student_id} class="card w-96 bg-slate-200 text-black shadow-xl">
 	<div class="card-body">
 		<div class="flex flex-row gap-5">
 			<div class="avatar placeholder">
